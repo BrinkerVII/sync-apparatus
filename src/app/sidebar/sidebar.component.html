@@ -1,0 +1,10 @@
+<div class="sidebar-wrapper">
+	<ul>
+		<li *ngFor="let item of sidebarItems" [ngClass]="{'selected': router.url == item.link}">
+			<a [routerLink]="[item.link]">
+				<span>{{ item.display }}</span>
+			</a>
+			<span class="arrow"></span>
+		</li>
+	</ul>
+</div>

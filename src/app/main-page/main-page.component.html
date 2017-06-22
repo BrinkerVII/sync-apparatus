@@ -1,0 +1,89 @@
+<div class="container main-page-wrapper">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Project</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form">
+						<div class="form-group">
+							<input type="text" class="form-control" disabled="" [value]="projectFolder">
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-sm btn-primary" (click)="browse()">Browse</button>
+							<button type="button" class="btn btn-sm btn-warning" (click)="refreshChanges()">Refresh pending changes</button>
+							<button type="button" class="btn btn-sm btn-success" (click)="refreshProject()">Refresh project</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Mapping</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form form-horizontal" [formGroup]="formAdd" (submit)="addMapping()">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>From</th>
+									<th>To</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let map of currentMapping">
+									<td>{{ map.source }}</td>
+									<td>{{ map.target }}</td>
+									<td><button type="button" class="button btn-sm btn-danger" (click)="deleteMapping(map.id)"><i class="fa fa-trash-o"></i></button></td>
+								</tr>
+								<tr>
+									<td><input type="text" formControlName="from" placeholder="/Server"></td>
+									<td><input type="text" formControlName="to" placeholder="/ServerScriptService"></td>
+									<td><button type="submit" class="button btn-sm" [ngClass]="{'btn-success': formAdd.valid, 'btn-default': formAdd.invalid}" [disabled]="formAdd.invalid"><i class="fa fa-plus"></i></button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Pending changes</h3>
+				</div>
+				<div class="panel-body" *ngIf="changes">
+					<table class="table table-hover" *ngIf="changes.length > 0">
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th>Path</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let change of changes" [ngClass]="{'deletion': change.deleted}">
+								<td *ngIf="change.isFile">File</td>
+								<td *ngIf="change.isDirectory">Directory</td>
+								<td *ngIf="change.deleted">Deletion</td>
+								<td>{{ change.relative }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

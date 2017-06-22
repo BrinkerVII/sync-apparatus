@@ -1,0 +1,13 @@
+@import "../../styles/shared-style";
+
+.main-page-wrapper {
+	padding-top: 3rem;
+
+	form input {
+		cursor: default;
+	}
+
+	tr.deletion {
+		color: $color-danger;
+	}
+}

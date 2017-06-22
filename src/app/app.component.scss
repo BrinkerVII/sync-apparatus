@@ -1,0 +1,28 @@
+$sidebar-width: 15rem;
+$status-bar-height: 2rem;
+
+app-sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: block;
+	width: $sidebar-width;
+	height: calc(100% - 2rem);
+}
+
+main {
+	position: fixed;
+	display: block;
+	left: $sidebar-width;
+	height: calc(100% - 2rem);
+	width: calc(100% - 15rem);
+	overflow-y: scroll;
+}
+
+app-status-bar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: $status-bar-height;
+	width: 100%;
+}

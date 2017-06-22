@@ -1,0 +1,15 @@
+$color-primary:    #8e44ad; // REDACTED Orange
+$color-secondary:  #404040; // Black / menu BG
+$color-danger:     #f50f15; // Error
+$color-success:    #3da935; // Green things
+$color-light:      #f4f4f4; // Primary text
+$color-dark:       #111; // Dark
+
+$colors: (
+  primary:    $color-primary,   // REDACTED Orange
+  secondary:  $color-secondary, // Black / menu BG
+  danger:     $color-danger,    // Error
+  success:    $color-success,   // Green things
+  light:      $color-light,     // Primary text
+  dark:       $color-dark       // Dark
+);

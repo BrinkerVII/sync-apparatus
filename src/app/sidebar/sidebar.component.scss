@@ -1,0 +1,62 @@
+@import '../../styles/shared-style';
+
+.sidebar-wrapper {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: calc(100% - 1em);
+	background-color: lighten($color-dark, 2.5%);
+
+	* {
+		position: relative;
+	}
+
+	ul {
+		top: 1em;
+		
+		li {
+			height: 2em;
+			display: block;
+			vertical-align: middle;
+
+			a {
+				position: absolute;
+				display: block;
+				top: 0;
+				left: 0;
+				width: calc(100% - 2em);
+				height: 100%;
+				vertical-align: middle;
+
+				span {
+					position: relative;
+					left: 2em;
+					top: 0.5em;
+				}
+			}
+			$arrow-size: 1em;
+
+			span.arrow {
+				top: 0;
+				position: absolute;
+				display: block;
+				width: 0;
+				height: 0;
+				border-top: $arrow-size solid transparent;
+				border-bottom: $arrow-size solid transparent;
+			}
+
+			&:hover {
+				span.arrow {
+					border-left: $arrow-size solid darken($color-light, 50%);
+				}
+			}
+
+			&.selected {
+				span.arrow {
+					border-left: $arrow-size solid $color-primary;
+				}
+			}
+		}
+	}
+}
