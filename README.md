@@ -11,6 +11,8 @@ At the time of writing this, the project _somewhat_ works. As the project is a
 work in progress, it is quite crusty at the moment.
 
 # Usage
+This project is build with Angular 2, fun
+
 ## Getting started
 
 Angular likes being installed globally, so you probably should do that.
