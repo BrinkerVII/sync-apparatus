@@ -13,7 +13,7 @@
     						</tr>
     					</thead>
     					<tbody>
-    						<tr *ngFor="let item of neutrino.getRoot()">
+    						<tr *ngFor="let item of neutrino.remote.getRoot()">
     							<td>{{ item }}</td>
     						</tr>
     					</tbody>
@@ -36,7 +36,7 @@
     						</tr>
     					</thead>
     					<tbody>
-    						<tr *ngFor="let item of neutrino.readASAR()">
+    						<tr *ngFor="let item of neutrino.remote.readASAR()">
     							<td>{{ item }}</td>
     						</tr>
     					</tbody>
