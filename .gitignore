@@ -41,3 +41,7 @@ desktop.ini
 
 secret/
 to-sync/
+
+*.zip
+*.7z
+*.rar
