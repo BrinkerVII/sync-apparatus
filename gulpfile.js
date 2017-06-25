@@ -21,7 +21,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('pack-plugin', function() {
-	gulp.src('sync-apparatus-plugin')
+	gulp.src('sync-apparatus-plugin/**/*')
 		.pipe(zip('sync-apparatus-plugin.zip'))
 		.pipe(gulp.dest('electron-app/assets'));
 });

@@ -1,3 +1,33 @@
-<p>
-  settings-page works!
-</p>
+<div class="settings-page-wrapper container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Install plugin locally</h3>
+				</div>
+				<div class="panel-body">
+					<p>
+						The plugin on the ROBLOX website might not always be up to date with the plugin from the github release. Installing the plugin locally might conflight with the plugin installed from the roblox website, but it will probably be more up to date. One click
+						of the button does the trick.
+					</p>
+					<button type="button" class="btn btn-primary" (click)="installPlugin()">DO IT!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Remove locally installed plugin</h3>
+				</div>
+				<div class="panel-body">
+					<p>
+						Removes the plugin you installed with the panel above. If you haven't installed the plugin, this will do absolutely nothing
+					</p>
+					<button type="button" class="btn btn-danger">DO IT!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

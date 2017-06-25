@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const unzip = require('unzip');
+const fstream = require('fstream');
 const {
 	parseString
 } = require('xml2js');
@@ -92,7 +93,7 @@ function getPluginsDir() {
 }
 
 function unzipPlugin(output) {
-	let readStream = fs.createReadStream('./resources/app.asar/assets/sync-apparatus-plugin.zip');
+	let readStream = fs.createReadStream('./resources/app.asar/electron-app/assets/sync-apparatus-plugin.zip');
 	let writeStream = fstream.Writer(output);
 
 	readStream
@@ -100,9 +101,49 @@ function unzipPlugin(output) {
 		.pipe(writeStream);
 }
 
+function doInstall(targetPath) {
+	unzipPlugin(targetPath);
+	return true;
+}
+
 const pluginInstaller = {
-	install: () => {
-		unzipPlugin(getPluginsDir());
+		install: () => {
+			return new Promise((resolve, reject) => {
+					try {
+						getPluginsDir()
+							.then(plugins => {
+									var targetPath = path.join(plugins, "sync-apparatus-plugin");
+									fs.stat(targetPath, (err, stat) => {
+											if (err) {
+												fs.mkdir(targetPath, (err) => {
+													if (err) {
+														reject(err);
+													} else {
+														resolve(doInstall(targetPath));
+													}
+												});
+											} else {
+												if (stat.isFile()) {
+													fs.unlink(targetPath, err => {
+															if (err) {
+																reject(err);
+														} else {
+															resolve(doInstall(targetPath));
+														}
+													})
+											} else {
+												resolve(doInstall(targetPath));
+											}
+										}
+									})
+							})
+					.catch(err => {
+						reject(err);
+					})
+				} catch (e) {
+					reject(e);
+				}
+			});
 	},
 	getGlobalSettings: getGlobalSettings,
 	getPluginsDir: getPluginsDir

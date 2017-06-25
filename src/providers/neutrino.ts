@@ -128,8 +128,8 @@ export class SyncServer {
 	}
 }
 export class PluginInstaller {
-	install(from: string) {
-
+	install(): Promise<string | boolean> {
+		return;
 	}
 }
 
