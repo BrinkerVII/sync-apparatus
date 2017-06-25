@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const unzip = require('unzip');
 const {
 	parseString
 } = require('xml2js');
@@ -80,7 +81,7 @@ function getPluginsDir() {
 					return reject("Did not find pluginsdir QDir");
 				}
 
-				if(typeof pluginsDir._ !== "string") {
+				if (typeof pluginsDir._ !== "string") {
 					return reject("The found pluginsdir is not a string!!");
 				}
 
@@ -90,9 +91,18 @@ function getPluginsDir() {
 	});
 }
 
-const pluginInstaller = {
-	install: (from) => {
+function unzipPlugin(output) {
+	let readStream = fs.createReadStream('./resources/app.asar/assets/sync-apparatus-plugin.zip');
+	let writeStream = fstream.Writer(output);
 
+	readStream
+		.pipe(unzip.Parse())
+		.pipe(writeStream);
+}
+
+const pluginInstaller = {
+	install: () => {
+		unzipPlugin(getPluginsDir());
 	},
 	getGlobalSettings: getGlobalSettings,
 	getPluginsDir: getPluginsDir

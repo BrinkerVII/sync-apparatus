@@ -114,6 +114,7 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0",
+    "unzip": "^0.1.11",
     "url-loader": "^0.5.7",
     "webpack": "~2.2.0",
     "webpack-dev-server": "~2.4.2"
