@@ -807,9 +807,21 @@ function applyChanges(changeInfo, changes)
 	local resolved = {}
 
 	for _,change in pairs(changeInfo) do
+		print("Applying change " .. tostring(change.id))
+		print("isDirectory : " .. tostring(change.isDirectory))
+		print("isFile : " .. tostring(change.isFile))
+		print("deleted : " .. tostring(change.deleted))
+		print("relative : " .. tostring(change.relative))
+
 		local path, ext = change.relative:match("^(.*)(%..+)$")
 		if (change.deleted) then
-			FS:RMFile(path)
+			if (path and ext) then
+				FS:RMFile(path)
+			else
+				print("DELETING DIRECTORY " .. change.relative)
+				FS:RMFile(change.relative)
+			end
+
 			table.insert(resolved, change.id)
 		else
 			if (change.isFile and path and ext and tostring(ext):lower() == ".lua") then

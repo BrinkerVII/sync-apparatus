@@ -58,14 +58,16 @@ function takeChanges() {
 			return;
 		}
 
-		let content = fs.readFileSync(change.filename, "UTF-8");
-		if (contentLength + content.length > TAKE_LIMIT) {
-			running = false;
-			return;
-		} else {
-			index.push(change.id);
-			contents.push(content);
-			contentLength += content.length;
+		if (!change.deleted && change.isFile) {
+			let content = fs.readFileSync(change.filename, "UTF-8");
+			if (contentLength + content.length > TAKE_LIMIT) {
+				running = false;
+				return;
+			} else {
+				index.push(change.id);
+				contents.push(content);
+				contentLength += content.length;
+			}
 		}
 	});
 
@@ -76,16 +78,20 @@ function takeChanges() {
 }
 
 function appendChange(newChange) {
-	if (!newChange.endsWith(".lua")) {
-		return;
-	}
-
 	removeChange(newChange);
 	fs.stat(newChange, (err, stat) => {
 		let deleted = false;
 
 		if (err) {
 			deleted = true;
+		}
+
+		if (stat) {
+			if (stat.isFile()) {
+				if (!newChange.endsWith(".lua")) {
+					return null;
+				}
+			}
 		}
 
 		let relativePath = pathToPOSIX(path.relative(SYNC_DIR, newChange));
