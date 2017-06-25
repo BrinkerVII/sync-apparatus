@@ -2,7 +2,7 @@
   "author": "BrinkerVII",
   "name": "sync-apparatus",
   "repository": "https://github.com/BrinkerVII/sync-apparatus",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "BSD-3-Clause",
   "main": "electron-app/main.js",
   "scripts": {
