@@ -46,3 +46,6 @@ to-sync/
 *.zip
 *.7z
 *.rar
+
+# Application generates rogue mapping files :D
+/.mapping.json
