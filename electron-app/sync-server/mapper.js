@@ -85,6 +85,21 @@ function initMapperFile(fpath) {
 }
 
 function setup(base) {
+	let baseStat = fs.statSync(base);
+	if (!baseStat) {
+		try {
+			fs.mkdirSync(base);
+		} catch (ex) {
+			console.error(ex);
+		}
+	}
+
+	baseStat = fs.statSync(base);
+	if (!baseStat) {
+		console.error("Failed to read sync dir");
+		return;
+	}
+
 	let fpath = path.join(base, MAPPER_FILENAME);
 	if (initMapperFile(fpath)) {
 		MAPPER_FILE = fpath;
