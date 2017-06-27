@@ -47,9 +47,9 @@
       "electron-app",
       "node_modules"
     ],
-	"linux": {
-		"target": "AppImage"
-	},
+    "linux": {
+      "target": "AppImage"
+    },
     "win": {
       "target": "portable"
     }
@@ -68,6 +68,7 @@
     "core-js": "^2.4.1",
     "fstream": "^1.0.11",
     "ncp": "^2.0.0",
+    "rimraf": "^2.6.1",
     "rxjs": "^5.1.0",
     "unzip": "^0.1.11",
     "uuid": "^3.0.1",

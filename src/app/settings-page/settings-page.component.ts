@@ -27,4 +27,15 @@ export class SettingsPageComponent implements OnInit {
 				alert("Oh no, something went wrong!\n\n" + err.toString());
 			});
 	}
+
+	removePlugin() {
+		this.neutrino.remote.getPluginInstaller().uninstall()
+			.then(() => {
+				alert("Removed plugin!");
+			})
+			.catch(err => {
+				alert("Oh no, something went wrong!\n\n" + err.toString());
+				console.error(err);
+			})
+	}
 }

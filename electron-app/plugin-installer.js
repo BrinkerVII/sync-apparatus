@@ -2,10 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const unzip = require('unzip');
 const fstream = require('fstream');
+const rimraf = require('rimraf');
 const {
 	parseString
 } = require('xml2js');
 
+const PLUGIN_FOLDER = "sync-apparatus-plugin";
 var roblox_root = "";
 
 if (process.platform === "win32") {
@@ -107,43 +109,60 @@ function doInstall(targetPath) {
 }
 
 const pluginInstaller = {
-		install: () => {
-			return new Promise((resolve, reject) => {
-					try {
-						getPluginsDir()
-							.then(plugins => {
-									var targetPath = path.join(plugins, "sync-apparatus-plugin");
-									fs.stat(targetPath, (err, stat) => {
-											if (err) {
-												fs.mkdir(targetPath, (err) => {
-													if (err) {
-														reject(err);
-													} else {
-														resolve(doInstall(targetPath));
-													}
-												});
-											} else {
-												if (stat.isFile()) {
-													fs.unlink(targetPath, err => {
-															if (err) {
-																reject(err);
-														} else {
-															resolve(doInstall(targetPath));
-														}
-													})
-											} else {
-												resolve(doInstall(targetPath));
-											}
+	install: () => {
+		// HADOUKEN!
+		return new Promise((resolve, reject) => {
+			try {
+				getPluginsDir()
+					.then(plugins => {
+						var targetPath = path.join(plugins, PLUGIN_FOLDER);
+						fs.stat(targetPath, (err, stat) => {
+							if (err) {
+								fs.mkdir(targetPath, (err) => {
+									if (err) {
+										reject(err);
+									} else {
+										resolve(doInstall(targetPath));
+									}
+								});
+							} else {
+								if (stat.isFile()) {
+									fs.unlink(targetPath, err => {
+										if (err) {
+											reject(err);
+										} else {
+											resolve(doInstall(targetPath));
 										}
 									})
-							})
+								} else {
+									resolve(doInstall(targetPath));
+								}
+							}
+						})
+					})
 					.catch(err => {
 						reject(err);
 					})
-				} catch (e) {
-					reject(e);
-				}
-			});
+			} catch (e) {
+				reject(e);
+			}
+		});
+	},
+	uninstall: () => {
+		return new Promise((resolve, reject) => {
+			getPluginsDir()
+				.then(plugins => {
+					var targetPath = path.join(plugins, PLUGIN_FOLDER);
+					rimraf(targetPath, (err) => {
+						if (err) {
+							return reject(err);
+						}
+
+						resolve();
+					});
+				})
+				.catch(err => reject(err));
+		});
 	},
 	getGlobalSettings: getGlobalSettings,
 	getPluginsDir: getPluginsDir

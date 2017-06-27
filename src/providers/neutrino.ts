@@ -134,6 +134,10 @@ export class PluginInstaller {
 	install(): Promise<string | boolean> {
 		return;
 	}
+
+	uninstall() : Promise<void> {
+		return;
+	}
 }
 
 @Injectable()
