@@ -1,12 +1,13 @@
-const electron = require('electron');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
+const PLUGIN_HREF = "https://www.roblox.com/library/886801297/Sync-apparatus-plugin";
 const syncServer = require('./sync-server/index');
 
 const {
 	app,
+	shell,
 	BrowserWindow,
 	dialog
 } = require("electron");
@@ -142,5 +143,8 @@ exports.provider = {
 	},
 	readASAR: () => {
 		return fs.readdirSync("./resources/app.asar/");
+	},
+	openPluginInBrowser: () => {
+		shell.openItem(PLUGIN_HREF);
 	}
 }

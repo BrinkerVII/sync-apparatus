@@ -31,6 +31,9 @@ export class ElectronProvider {
 	readASAR(): string[] {
 		return;
 	}
+	openPluginInBrowser() {
+
+	}
 }
 
 export interface IBrowseFolderResponse {

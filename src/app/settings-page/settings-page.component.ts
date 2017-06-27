@@ -13,6 +13,10 @@ export class SettingsPageComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	openPluginPage() {
+		this.neutrino.remote.openPluginInBrowser();
+	}
+
 	installPlugin() {
 		this.neutrino.remote.getPluginInstaller().install()
 			.then(res => {
