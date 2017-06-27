@@ -1,14 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Neutrino } from '../../providers/neutrino';
 
+interface IOutputState {
+	text?: string;
+	error: boolean;
+	errorObject?: any;
+}
+
 @Component({
 	selector: 'app-settings-page',
 	templateUrl: './settings-page.component.html',
 	styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent implements OnInit {
+	private installerState: IOutputState;
+	private uninstallerState: IOutputState;
 
-	constructor(private neutrino: Neutrino) { }
+	constructor(private neutrino: Neutrino) {
+		this.installerState = {
+			error: false
+		}
+		this.uninstallerState = {
+			error: false
+		}
+	}
 
 	ngOnInit() {
 	}
@@ -20,22 +35,29 @@ export class SettingsPageComponent implements OnInit {
 	installPlugin() {
 		this.neutrino.remote.getPluginInstaller().install()
 			.then(res => {
-				alert("Installed plugin!");
-				console.log(res);
+				this.installerState.error = false;
+				this.installerState.text = "Successfully installed plugin!";
+				this.installerState.errorObject = null;
 			})
 			.catch(err => {
-				alert("Oh no, something went wrong!\n\n" + err.toString());
+				this.installerState.error = true;
+				this.installerState.text = "Something went wrong while installing the plugin";
+				this.installerState.errorObject = err;
 			});
 	}
 
 	removePlugin() {
 		this.neutrino.remote.getPluginInstaller().uninstall()
 			.then(() => {
-				alert("Removed plugin!");
+				// alert("Removed plugin!");
+				this.uninstallerState.error = false;
+				this.uninstallerState.text = "Successfully removed plugin!";
+				this.uninstallerState.errorObject = null;
 			})
 			.catch(err => {
-				alert("Oh no, something went wrong!\n\n" + err.toString());
-				console.error(err);
+				this.uninstallerState.error = true;
+				this.uninstallerState.text = "Something went wrong while uninstalling the plugin";
+				this.uninstallerState.errorObject = err;
 			})
 	}
 }

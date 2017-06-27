@@ -1,3 +1,14 @@
+@import "../../styles/shared-style";
+
 .settings-page-wrapper {
 	margin-top: 3rem;
+
+	.output {
+		display: inline-block;
+		margin-left: 1rem;
+
+		&.error {
+			color: $color-danger;
+		}
+	}
 }

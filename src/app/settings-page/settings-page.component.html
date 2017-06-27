@@ -26,6 +26,13 @@
 						of the button does the trick.
 					</p>
 					<button type="button" class="btn btn-primary" (click)="installPlugin()">DO IT!</button>
+
+					<div class="output" [ngClass]="{'error': installerState.error }">
+						<span *ngIf=installerState.text>{{ installerState.text }}</span>
+						<div class="error-object" *ngIf="installerState.errorObject">
+							{{ errorObject | json }}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -41,6 +48,13 @@
 						Removes the plugin you installed with the panel above. If you haven't installed the plugin, this will do absolutely nothing
 					</p>
 					<button type="button" class="btn btn-danger" (click)="removePlugin()">DO IT!</button>
+
+					<div class="output" [ngClass]="{'error': uninstallerState.error }">
+						<span *ngIf=uninstallerState.text>{{ uninstallerState.text }}</span>
+						<div class="error-object" *ngIf="uninstallerState.errorObject">
+							{{ errorObject | json }}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
