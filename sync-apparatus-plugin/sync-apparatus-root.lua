@@ -14,9 +14,9 @@ local SERVICES = {
 }
 
 local buttons = {
-	Run = toolbar:CreateButton("Interface with the sync apparatus", "Start ze sync apparatus", "appbar.tree.pine.png"),
-	ToLocalScript = toolbar:CreateButton("Morph a script to a LocalScript", "Morph to LocalScript", "script_code.png"),
-	ToScript = toolbar:CreateButton("Morph a script to a Script", "Morph to Script", "script_code_red.png"),
+	Run = toolbar:CreateButton("Start", "Start ze sync apparatus", "rbxassetid://886593929"),
+	ToLocalScript = toolbar:CreateButton("Morph to LocalScript", "Morph a selected LuaSourceContainer to a LocalScript", "rbxassetid://886753874"),
+	ToScript = toolbar:CreateButton("Morph to Script", "Morph a selected LuaSourceContainer to Script", "rbxassetid://886754017"),
 }
 
 local og_print = print
@@ -444,14 +444,14 @@ buttons.ToLocalScript.Click:Connect(function()
 	local results = {}
 
 	for _, v in pairs(SERVICES.Selection:Get()) do
-		if (v.ClassName:lower():find("script")) then
+		if (v:IsA("LuaSourceContainer")) then
 			local newInstance = e:New "LocalScript" {
 				Parent = v.Parent,
 				Source = v.Source,
 				Name = v.Name,
 			}
 			for _, x in pairs(v:GetChildren()) do
-				x.Parent = v
+				x.Parent = newInstance
 			end
 
 			table.insert(results, newInstance)
@@ -467,14 +467,14 @@ buttons.ToScript.Click:Connect(function()
 	local results = {}
 
 	for _, v in pairs(SERVICES.Selection:Get()) do
-		if (v.ClassName:lower():find("script")) then
+		if (v:IsA("LuaSourceContainer")) then
 			local newInstance = e:New "Script" {
 				Parent = v.Parent,
 				Source = v.Source,
 				Name = v.Name,
 			}
 			for _, x in pairs(v:GetChildren()) do
-				x.Parent = v
+				x.Parent = newInstance
 			end
 
 			table.insert(results, newInstance)
@@ -730,7 +730,7 @@ local FS = {
 				return folderToModule(resolve)
 			end
 
-			if (resolve.ClassName:lower():find("script")) then
+			if (resolve:IsA("LuaSourceContainer")) then
 				return resolve
 			end
 
