@@ -1,4 +1,4 @@
-local plugin = PluginManager():CreatePlugin()
+local plugin = plugin
 local toolbar = plugin:CreateToolbar("Sync apparatus")
 
 local CONFIG = {
