@@ -37,8 +37,14 @@ const syncServer = {
 	}
 }
 
-mapper.init(config, syncServer);
 file_watcher.init(config, syncServer);
-http_server.init(config, syncServer);
+mapper.init(config, syncServer)
+	.then(data => {
+		http_server.init(config, syncServer);
+	})
+	.catch(err => {
+		console.error("Failed to init mapper");
+		console.error(err);
+	});
 
 module.exports = syncServer

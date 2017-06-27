@@ -75,7 +75,9 @@ function writeMapping(targetPath) {
 	return new Promise((resolve, reject) => {
 		openFile(targetPath, "w")
 			.then(fd => {
-				fs.writeFile(fd, getMapString(), 0, 'UTF-8', (err) => {
+				fs.writeFile(fd, getMapString(), {
+					encoding: 'UTF-8'
+				}, (err) => {
 					if (err) {
 						closeFile(fd)
 							.then(b => {
@@ -98,7 +100,7 @@ function writeMapping(targetPath) {
 
 function statMapperFile(basePath) {
 	return new Promise((resolve, reject) => {
-		statBaseDirectory()
+		statBaseDirectory(basePath)
 			.then(bstat => {
 				if (!bstat.isDirectory()) {
 					return reject("Base path for the mapper file must be a directory");
@@ -122,9 +124,10 @@ function statMapperFile(basePath) {
 	});
 }
 
-function readMapperFile(filePath) {
+function readMapperFile(basePath) {
+	let filePath = MAPPER_FILE;
 	return new Promise((resolve, reject) => {
-		statMapperFile(filePath)
+		statMapperFile(basePath)
 			.then(b => {
 				fs.readFile(filePath, 'UTF-8', (err, data) => {
 					if (err) {
@@ -176,9 +179,9 @@ function setup(base) {
 					return reject("Something wonky and weird went wrong here");
 				}
 
-				readMapperFile(mapperPath)
+				readMapperFile(base)
 					.then(mapping_data => {
-						mapping = mapping_data;
+						mapping = JSON.parse(mapping_data);
 						resolve(mapping);
 					})
 					.catch(err => reject(err));
@@ -222,9 +225,13 @@ const mapper = {
 		};
 
 		mapping.push(newMapping);
-		writeMappingSync();
-
-		return newMapping;
+		return new Promise((resolve, reject) => {
+			writeMapping()
+				.then(b => {
+					resolve(mapping);
+				})
+				.catch(err => reject(err));
+		});
 	},
 	remove: id => {
 		let index = -1;
@@ -245,7 +252,7 @@ const mapper = {
 		return mapping;
 	},
 	writeMapping: () => {
-		writeMappingSync();
+		return writeMapping();
 	}
 }
 

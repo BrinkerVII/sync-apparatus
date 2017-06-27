@@ -105,8 +105,8 @@ export class Mapper {
 		return [];
 	}
 
-	writeMapping() {
-
+	writeMapping(): Promise<boolean> {
+		return;
 	}
 }
 

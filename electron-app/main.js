@@ -40,7 +40,11 @@ function createWindow() {
 		// in an array if your app supports multi windows, this is the time
 		// when you should delete the corresponding element.
 		mainWindow = null;
-		syncServer.getMapper().writeMapping();
+		syncServer.getMapper().writeMapping()
+			.then(data => {})
+			.catch(err => {
+				console.error(err);
+			});
 	});
 }
 
