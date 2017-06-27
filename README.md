@@ -35,6 +35,11 @@ This project is built with Angular 2, fun. You can use the commands below to
 run the development builds and hope it doesn't blow up in your face. The
 development builds have the chrome debugging tools enabled.
 
+## Software versions
+* NPM >= 4.x.x
+* Node >= 7.x.x
+* Angular CLI >= 1.0.4
+
 # The ROBLOX Plugin
 At the moment you have several ways of installing the ROBLOX plugin.
 
