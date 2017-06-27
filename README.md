@@ -36,9 +36,14 @@ run the development builds and hope it doesn't blow up in your face. The
 development builds have the chrome debugging tools enabled.
 
 # The ROBLOX Plugin
-At the moment you have two ways of installing the ROBLOX plugin
+At the moment you have several ways of installing the ROBLOX plugin.
 
-## 1: The sensible way
+## 0: The standard way
+Install the plugin from the
+[ROBLOX Website](https://www.roblox.com/library/886801297/Sync-apparatus-plugin)
+. You have to copy-paste the link address into ROBLOX studio.
+
+## 1: The development build way
 The sync apparatus has a settings panel that has a button that allows you to
 magically install the plugin into the right folders. You should go on an
 adventure to find this button and click it. Beware: this only works with
