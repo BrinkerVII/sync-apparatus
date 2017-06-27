@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
 	sidebarItems: ISidebarItem[] = [
 		{ display: "Main", link: "/app/main" },
 		{ display: "Settings", link: "/app/settings" },
-		{ display: "Test", link: "/app/test" },
+		// { display: "Test", link: "/app/test" },
 	];
 
 	constructor(
