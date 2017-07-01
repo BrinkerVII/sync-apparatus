@@ -45,6 +45,9 @@ mapper.init(config, syncServer)
 	.catch(err => {
 		console.error("Failed to init mapper");
 		console.error(err);
+
+		// Start regardless because yolo I guess
+		http_server.init(config, syncServer);
 	});
 
 module.exports = syncServer

@@ -3,7 +3,7 @@
   "name": "sync-apparatus",
   "description": "A neat program that syncs your local filesystem to ROBLOX studio",
   "repository": "https://github.com/BrinkerVII/sync-apparatus",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "BSD-3-Clause",
   "main": "electron-app/main.js",
   "scripts": {

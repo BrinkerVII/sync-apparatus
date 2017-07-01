@@ -156,6 +156,15 @@ function makeMapperIfNotExists(basePath) {
 				statBaseDirectory(basePath)
 					.then(stat => {
 						console.log("Base directory exists, yay");
+
+						statMapperFile(basePath)
+							.then(resolve(true))
+							.catch(err => {
+								console.warn("No mapper file, making one...", err);
+								writeMapping(MAPPER_FILE)
+									.then(b => resolve(b))
+									.catch(err => reject(err));
+							});
 					})
 					.catch(err => {
 						mkdir(basePath)
