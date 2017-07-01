@@ -739,8 +739,17 @@ local FS = {
 		end
 
 		local split = e.String:Split(path, "/")
+
+		local function makeFile()
+			instance = e:New "ModuleScript" {
+				Parent = instance,
+				Name = tostring(split[#split])
+			}
+		end
+
 		if (#split < 2) then
-			return nil
+			makeFile()
+			return instance
 		end
 
 		for i = 1, #split - 1, 1 do
@@ -753,10 +762,7 @@ local FS = {
 			end
 		end
 
-		instance = e:New "ModuleScript" {
-			Parent = instance,
-			Name = tostring(split[#split])
-		}
+		makeFile()
 
 		return instance
 	end),
@@ -807,18 +813,20 @@ function applyChanges(changeInfo, changes)
 	local resolved = {}
 
 	for _,change in pairs(changeInfo) do
-		print("Applying change " .. tostring(change.id))
+		--[[ print("Applying change " .. tostring(change.id))
 		print("isDirectory : " .. tostring(change.isDirectory))
 		print("isFile : " .. tostring(change.isFile))
 		print("deleted : " .. tostring(change.deleted))
-		print("relative : " .. tostring(change.relative))
+		print("relative : " .. tostring(change.relative)) ]]
 
 		local path, ext = change.relative:match("^(.*)(%..+)$")
+		-- print("P", path, "E", ext)
+
 		if (change.deleted) then
 			if (path and ext) then
 				FS:RMFile(path)
 			else
-				print("DELETING DIRECTORY " .. change.relative)
+				-- print("DELETING DIRECTORY " .. change.relative)
 				FS:RMFile(change.relative)
 			end
 
